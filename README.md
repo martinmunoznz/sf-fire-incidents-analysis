@@ -10,7 +10,6 @@ It includes data downloading, cleaning, local storage using SQLite, visualizatio
 .
 ├── pipeline.py            # Main script with the full pipeline logic
 ├── Challenge.ipynb        # Jupyter Notebook for interactive exploration
-├── fire_incidents.db      # SQLite database with cleaned and dimensional data (auto-generated)
 └── README.md              # Project documentation
 ```
 
