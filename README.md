@@ -1,31 +1,31 @@
-# Análisis de Incidentes de Incendio en San Francisco 🚒
+# 🔥 San Francisco Fire Incidents Analysis
 
-Este repositorio contiene el análisis del dataset público de incidentes de incendios en San Francisco, siguiendo los pasos requeridos por el challenge **Case Study - Data of Fire v1.1**.
+This repository contains the analysis of the public dataset of fire incidents in San Francisco, following the steps outlined in the **Case Study - Data of Fire v1.1** challenge.
 
-## 📊 Pasos realizados
+## 📊 Steps Completed
 
-1. **Descarga y exploración** del dataset oficial.
-2. **Limpieza**: eliminación de duplicados y registros nulos.
-3. **Carga en base de datos**: los datos se almacenan en una base de datos SQLite para permitir consultas SQL.
-4. **Análisis exploratorio**: visualización de la distribución temporal y otros aspectos relevantes.
-5. **Documentación y visualizaciones** dentro del notebook.
+1. **Download and exploration** of the official dataset.
+2. **Data cleaning**: removal of duplicates and null records.
+3. **Database loading**: the data is stored in a SQLite database to enable SQL queries.
+4. **Exploratory analysis**: visualization of temporal distribution and relevant features.
+5. **Documentation and visualizations** presented within the notebook.
 
-## 📁 Archivos incluidos
+## 📁 Files Included
 
-- `Challenge.ipynb` — Notebook de Jupyter/Colab con el análisis completo.
-- `fire_incidents.db`
-- `README.md` — Documentación del análisis.
+- `Challenge.ipynb` — Jupyter/Colab notebook with the full analysis.
+- `fire_incidents.db` — SQLite database with the cleaned data.
+- `README.md` — Project documentation.
 
-## ▶️ Cómo reproducir
+## ▶️ How to Reproduce
 
-1. Descarga este repositorio (`Code` > `Download ZIP` o con `git clone`).
-2. Abre el archivo `Challenge.ipynb` en Google Colab o Jupyter Notebook.
-3. Ejecuta todas las celdas siguiendo el orden.
+1. Download this repository (`Code` > `Download ZIP` or via `git clone`).
+2. Open the `Challenge.ipynb` file in Google Colab or Jupyter Notebook.
+3. Run all cells in order.
 
-## 🔗 Dataset original
+## 🔗 Original Dataset
 
 - [San Francisco Fire Incidents](https://data.sfgov.org/Public-Safety/Fire-Incidents/wr8u-xric)
 
 ---
 
-> **Nota:** El análisis cumple con todos los puntos de la consigna: limpieza, carga en base de datos, consultas y visualizaciones simples.
+> **Note:** The analysis strictly follows the challenge requirements: cleaning, database storage, simple queries, and basic visualizations.
