@@ -93,22 +93,34 @@ def crear_datawarehouse(db_name):
     df_location['location_id'] = df_location.index + 1
     df_location.to_sql('dim_location', conn, if_exists='replace', index=False)
 
-    # Dimensión tipo de incidente
-    type_cols = ['incident_type_description', 'call_type', 'alarm_dttm', 'final_priority']
-    df_type = df[type_cols].drop_duplicates().dropna().copy()
-    df_type.reset_index(drop=True, inplace=True)
-    df_type['type_id'] = df_type.index + 1
-    df_type.to_sql('dim_incident_type', conn, if_exists='replace', index=False)
+    # Dimensión tipo de incidente alternativa
+    alt_type_cols = ['primary_situation', 'action_taken_primary', 'ignition_cause']
+    available_type_cols = [col for col in alt_type_cols if col in df.columns]
+
+    if len(available_type_cols) < 2:
+        print("⚠️ Cannot create dim_incident_type: missing required columns.")
+    else:
+        df_type = df[available_type_cols].drop_duplicates().dropna().copy()
+        df_type.reset_index(drop=True, inplace=True)
+        df_type['type_id'] = df_type.index + 1
+        df_type.to_sql('dim_incident_type', conn, if_exists='replace', index=False)
 
     # Tabla de hechos
     df_fact = df.copy()
     df_fact['incident_date'] = pd.to_datetime(df_fact['incident_date'], errors='coerce')
     df_fact = df_fact.merge(df_date[['incident_date', 'date_id']], on='incident_date', how='left')
     df_fact = df_fact.merge(df_location, on=location_cols, how='left')
-    df_fact = df_fact.merge(df_type, on=type_cols, how='left')
 
-    df_fact_table = df_fact[['incident_number', 'date_id', 'location_id', 'type_id',
-                             'fire_fatalities', 'civilian_fatalities', 'estimated_property_loss']].copy()
+    if len(available_type_cols) >= 2:
+        df_fact = df_fact.merge(df_type, on=available_type_cols, how='left')
+        fact_cols = ['incident_number', 'date_id', 'location_id', 'type_id',
+                     'fire_fatalities', 'civilian_fatalities', 'estimated_property_loss']
+    else:
+        df_fact['type_id'] = None
+        fact_cols = ['incident_number', 'date_id', 'location_id', 'type_id',
+                     'fire_fatalities', 'civilian_fatalities', 'estimated_property_loss']
+
+    df_fact_table = df_fact[fact_cols].copy()
     df_fact_table['fatalities'] = df_fact_table[['fire_fatalities', 'civilian_fatalities']].sum(axis=1)
     df_fact_table = df_fact_table[['incident_number', 'date_id', 'location_id', 'type_id',
                                    'fatalities', 'estimated_property_loss']]
