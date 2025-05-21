@@ -31,7 +31,7 @@ The pipeline performs the following automated tasks:
 
 ## 🔗 Data Source
 
-- **Dataset**: [Fire Incidents - San Francisco](https://data.sfgov.org/Public-Safety/Fire-Incidents/wr8u-xric)
+- **Dataset**: Fire Incidents - San Francisco
 - **Download Format**: CSV
 - **Direct Link**:  
   https://data.sfgov.org/api/views/wr8u-xric/rows.csv?accessType=DOWNLOAD
@@ -73,17 +73,34 @@ The generated plot shows:
 
 - **X-axis**: Year of the incident (extracted from `incident_date`)
 - **Y-axis**: Number of fire incidents
-- **Library**: `matplotlib`
+- **Library**: matplotlib
 
 ---
 
-## 🧪 Google Collab: Challenge.ipynb
+## 🧪 Jupyter Notebook: Challenge.ipynb
 
 This notebook mirrors the `pipeline.py` script and is ideal for:
 
 - Step-by-step execution
 - Debugging
 - Exploring and transforming the data manually
+
+---
+
+## 📐 Data Model Design (Facts and Dimensions)
+
+Although this pipeline works with a flat table (`fire_incidents`), it can be extended into a dimensional model for Business Intelligence purposes:
+
+- **Fact Table:**
+  - `fire_incidents` (each row represents an incident)
+  - Measures: number of incidents, response times, injuries, property loss, etc.
+
+- **Potential Dimension Tables:**
+  - `dim_date`: for time analysis (year, month, day of week, etc.)
+  - `dim_location`: neighborhood, battalion, station area, zip code
+  - `dim_cause`: incident type, call type, alarm level
+
+This structure would allow for flexible and fast aggregation queries using OLAP-style dashboards or reporting tools.
 
 ---
 
@@ -96,6 +113,7 @@ Here are a few ideas to take the project further:
 - Export visualizations and datasets to PDF or Excel
 - Upload the data to a cloud data warehouse like BigQuery
 - Implement scheduled runs using Airflow or Prefect
+- Model fact/dimension schema and load it into a BI system (e.g. Power BI, Superset)
 
 ---
 
